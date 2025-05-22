@@ -99,3 +99,13 @@ export async function addComment(accessToken: string, text: string, targetPictur
 }
 
 // Keep other functions as is or modify similarly
+
+// Add this to your existing api.ts
+export async function isTokenValid(accessToken: string): Promise<boolean> {
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser(accessToken)
+    return !error && user !== null
+  } catch (error) {
+    return false
+  }
+}
